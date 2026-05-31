@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureMe — Meet the version of you who already made it.</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">FutureMe</div>
+            <ul class="nav-links">
+                <li><a href="#how-it-works">How it works</a></li>
+                <li><a href="#create">Create</a></li>
+                <li><a href="#chat">Chat</a></li>
+                <li><a href="#ai-hack">AI Hack</a></li>
+            </ul>
+            <a href="#create" class="nav-btn">Start Now</a>
+        </div>
+    </nav>
+
+    <section class="section-wrapper">
+        <div class="hero-grid">
+            <div class="hero-left reveal active">
+                <span class="badge">Built in Nitish’s Founder Labs</span>
+                <h1>Meet the version of you who already made it.</h1>
+                <p>FutureMe helps you reflect, plan, and receive advice from the person you are becoming.</p>
+                <div class="hero-actions">
+                    <a href="#create" class="btn-primary">Create My FutureMe</a>
+                    <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+                </div>
+            </div>
+            <div class="hero-right reveal active">
+                <div class="glass-card preview-card">
+                    <h3>Message from Future You</h3>
+                    <div class="preview-card-inner">
+                        <p>“You are closer than you think. But your current habits need to match your future identity.”</p>
+                    </div>
+                    <div class="preview-status">
+                        <div class="pulse-dot"></div>
+                        <span>FutureMe generated • Active Connection</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="section-wrapper">
+        <div class="section-header-center reveal">
+            <span class="badge badge-glow">The Blueprint</span>
+            <h2>Architect your convergence.</h2>
+            <p>A structured dialogue across timeline barriers.</p>
+        </div>
+        <div class="hook-grid">
+            <div class="glass-card hook-card reveal">
+                <h3>Your goals</h3>
+                <p>Tell FutureMe what you want to become. Quantify your ambition without institutional boundaries.</p>
+            </div>
+            <div class="glass-card hook-card reveal">
+                <h3>Your fears</h3>
+                <p>Be honest about what is stopping you. Lay bare the quiet friction and internal parameters holding you back.</p>
+            </div>
+            <div class="glass-card hook-card reveal">
+                <h3>Your next move</h3>
+                <p>Get a clear message from your future self. Pure strategic clarity operationalized for immediate execution.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="create" class="section-wrapper">
+        <div class="app-container">
+            <div class="section-header-center reveal">
+                <span class="badge badge-glow">AI Reflection Engine</span>
+                <h2>Calibrate Your Identity</h2>
+                <p>Fill out the configuration matrices below to align with your future self.</p>
+            </div>
+
+            <div class="glass-card glowing-engine-card reveal">
+                <div class="error-banner" id="errorBanner">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <span id="errorText">Please complete all parameters to continue tracking your potential.</span>
+                </div>
+
+                <form id="futureForm" onsubmit="generateFutureMe(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="userName">Your Name</label>
+                            <input type="text" id="userName" placeholder="e.g., Alex" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="userAge">Your Current Age</label>
+                            <input type="number" id="userAge" placeholder="e.g., 23" required>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="userGoal">Your Dream / Critical Absolute Goal</label>
+                            <input type="text" id="userGoal" placeholder="e.g., building a successful AI startup" required>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="userStruggle">What are you struggling with right now?</label>
+                            <textarea id="userStruggle" placeholder="e.g., lack of consistency, over-optimizing layouts instead of shipping code..." required></textarea>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="userTimeline">Where do you want to be exactly 1 year from now?</label>
+                            <input type="text" id="userTimeline" placeholder="e.g., running a profitable AI company" required>
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="futureTone">Choose your FutureMe Tone Model</label>
+                            <select id="futureTone" required>
+                                <option value="Motivational">Motivational (Aspirational, uplifting, visionary)</option>
+                                <option value="Brutally Honest" selected>Brutally Honest (Direct, zero excuse-tolerance, metric-driven)</option>
+                                <option value="Calm Mentor">Calm Mentor (Stoic, reflective, high emotional intelligence)</option>
+                                <option value="CEO Mode">CEO Mode (Hyper-tactical, speed of execution, focused on scaling)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" id="generateBtn" class="btn-primary engine-action">Generate My FutureMe</button>
+                </form>
+
+                <div class="loading-container" id="loadingState">
+                    <div class="spinner"></div>
+                    <p id="loadingPhrase">Synchronizing timeline nodes...</p>
+                </div>
+
+                <div class="output-card" id="outputContainer">
+                    <div class="output-header">
+                        <h3>Transmission From Your Future Self</h3>
+                        <div class="preview-status">
+                            <div class="pulse-dot"></div>
+                            <span id="outputTimestamp">Verified Pulse Connection</span>
+                        </div>
+                    </div>
+                    <p class="output-msg" id="dynamicMessage">Loading configuration stream...</p>
+                    
+                    <div class="output-block-grid">
+                        <div class="output-subcard output-subcard-full">
+                            <h4>Your Future Identity</h4>
+                            <p id="identBlock">Synthesizing state metrics...</p>
+                        </div>
+                        <div class="output-subcard">
+                            <h4>Your Next 3 Moves</h4>
+                            <ol id="movesBlock">
+                                <li>Isolating primary actions...</li>
+                                <li>Formulating structural protocols...</li>
+                                <li>Establishing execution parameters...</li>
+                            </ol>
+                        </div>
+                        <div class="output-subcard">
+                            <h4>One Habit to Start Today</h4>
+                            <p id="habitBlock">Extrapolating structural behavioral vectors...</p>
+                        </div>
+                        <div class="output-subcard">
+                            <h4>Future Self Warning</h4>
+                            <p id="warningBlock">Analyzing timeline risk factors...</p>
+                        </div>
+                        <div class="output-subcard">
+                            <h4>Daily Mantra</h4>
+                            <p id="mantraBlock">Formulating reinforcement anchors...</p>
+                        </div>
+                    </div>
+
+                    <div class="output-actions">
+                        <button class="btn-secondary" onclick="copyResult()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            Copy Result
+                        </button>
+                        <button class="btn-secondary" onclick="resetForm()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                            Regenerate
+                        </button>
+                        <a href="#chat" class="btn-primary" onclick="startChatFocus(event)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            Start Chat
+                        </a>
+                    </div>
+
+                    <!-- Daily Execution System & Personal Growth OS Dashboard -->
+                    <div class="execution-dashboard" id="executionDashboard" style="margin-top: 4rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 3rem;">
+                        
+                        <div class="section-header-center" style="margin-bottom: 2.5rem;">
+                            <span class="badge badge-glow">FutureMe OS</span>
+                            <h2 style="font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Daily Execution Dashboard</h2>
+                            <p style="color: var(--text-secondary); font-size: 1rem;">Translate your future self's vision into daily, consistent execution parameters.</p>
+                        </div>
+
+                        <!-- Grid: Left (Plan & Habits) | Right (Reflection & Reports) -->
+                        <div class="dashboard-grid">
+                            
+                            <!-- Left Column -->
+                            <div class="dashboard-col">
+                                
+
+                                <!-- FEATURE 2 & 3: Habit Tracker & Streak System -->
+                                <div class="glass-card habits-os-card" style="margin-bottom: 2rem; padding: 2rem;">
+                                    <div class="card-header-flex">
+                                        <h3 class="card-title">Habit Calibration Matrix</h3>
+                                        <div class="streak-mini-display">
+                                            <span class="streak-fire">🔥</span>
+                                            <span id="streakCountDisplay">0 Days</span>
+                                        </div>
+                                    </div>
+                                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; margin-top: -0.5rem;">Daily repetitions shape your final convergence.</p>
+
+                                    <!-- Streak Banner Display -->
+                                    <div class="streak-banner-row">
+                                        <div class="streak-stat-box">
+                                            <span class="streak-label">CURRENT STREAK</span>
+                                            <span class="streak-val" id="currentStreakVal">0 Days</span>
+                                        </div>
+                                        <div class="streak-stat-box">
+                                            <span class="streak-label">BEST STREAK</span>
+                                            <span class="streak-val" id="bestStreakVal">0 Days</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Streak Celebration (Initial hidden) -->
+                                    <div class="streak-celebration-alert" id="streakCelebrationAlert" style="display: none;">
+                                        <div class="celebrate-emoji">🏆</div>
+                                        <div>
+                                            <h5>Matrix Aligned</h5>
+                                            <p>"Future You Is Proud Of Today's Actions"</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Habits Progress Track -->
+                                    <div class="habits-progress-wrapper">
+                                        <div class="progress-details">
+                                            <span id="habitsCompletedRatio">0 / 5 Complete</span>
+                                            <span id="consistencyScore">0% Consistency Score</span>
+                                        </div>
+                                        <div class="progress-bar-track">
+                                            <div class="progress-bar-fill" id="habitsProgressBarFill" style="width: 0%;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Habits Checklist Stack -->
+                                    <div class="habits-stack" id="habitsListContainer">
+                                        <!-- Rendered dynamically -->
+                                    </div>
+
+                                    <!-- Add Custom Habit Input -->
+                                    <div class="add-habit-bar">
+                                        <input type="text" id="customHabitInput" placeholder="Add custom habit to matrix...">
+                                        <button class="btn-primary" onclick="addCustomHabit()">+</button>
+                                    </div>
+                                </div>
+
+                                <!-- FEATURE 7: Achievement Badges -->
+                                <div class="glass-card badges-os-card" style="margin-bottom: 2rem; padding: 2rem;">
+                                    <h3 class="card-title" style="margin-bottom: 1.5rem;">Identity Achievements</h3>
+                                    
+                                    <div class="badges-grid">
+                                        <div class="badge-item locked" id="badge-3day">
+                                            <div class="badge-icon">🔥</div>
+                                            <div class="badge-name">3-Day Sync</div>
+                                            <div class="badge-desc">3 Day Habits Streak</div>
+                                        </div>
+                                        <div class="badge-item locked" id="badge-7day">
+                                            <div class="badge-icon">🚀</div>
+                                            <div class="badge-name">7-Day Orbit</div>
+                                            <div class="badge-desc">7 Day Habits Streak</div>
+                                        </div>
+                                        <div class="badge-item locked" id="badge-30habits">
+                                            <div class="badge-icon">⚡</div>
+                                            <div class="badge-name">30 Reps</div>
+                                            <div class="badge-desc">30 Total Habits Completed</div>
+                                        </div>
+                                        <div class="badge-item locked" id="badge-master">
+                                            <div class="badge-icon">🏆</div>
+                                            <div class="badge-name">Master</div>
+                                            <div class="badge-desc">100% Consistency Score</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FEATURE 6: Weekly Report Generator -->
+                                <div class="glass-card weekly-report-os-card" style="padding: 2rem;">
+                                    <h3 class="card-title">FutureMe Weekly Performance Report</h3>
+                                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; margin-top: -0.5rem;">AI audit of your daily execution parameters.</p>
+                                    
+                                    <div class="report-content-box">
+                                        <div class="report-metrics-row">
+                                            <div class="metric-block">
+                                                <span class="metric-val" id="reportHabitsCount">0</span>
+                                                <span class="metric-lbl">Total Reps</span>
+                                            </div>
+                                            <div class="metric-block">
+                                                <span class="metric-val" id="reportReflectionsCount">0</span>
+                                                <span class="metric-lbl">Reflections</span>
+                                            </div>
+                                            <div class="metric-block">
+                                                <span class="metric-val" id="reportConsistencyScore">0%</span>
+                                                <span class="metric-lbl">Consistency</span>
+                                            </div>
+                                        </div>
+
+                                        <button class="btn-primary" id="generateReportBtn" style="width: 100%; justify-content: center; margin-top: 1.5rem; margin-bottom: 1.5rem;" onclick="generateWeeklyReport()">
+                                            Generate AI Summary Analysis
+                                        </button>
+
+                                        <div class="weekly-report-text-card" id="weeklyReportTextCard" style="display: none;">
+                                            <h4 class="report-voice-header">Future You Voice Audit</h4>
+                                            <p class="report-quote" id="reportQuoteBlock">“Awaiting data compilation feed...”</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="dashboard-col">
+                                
+                                <!-- FEATURE 4: Daily Reflection Check-In -->
+                                <div class="glass-card reflection-os-card" style="margin-bottom: 2rem; padding: 2rem;">
+                                    <h3 class="card-title">Daily Temporal Reflection</h3>
+                                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; margin-top: -0.5rem;">Document today's convergence vectors.</p>
+                                    
+                                    <div class="reflection-form">
+                                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                                            <label for="reflectAccomplish">What did you accomplish today?</label>
+                                            <textarea id="reflectAccomplish" placeholder="List your key wins..." required></textarea>
+                                        </div>
+                                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                                            <label for="reflectDistractions">What distracted you?</label>
+                                            <textarea id="reflectDistractions" placeholder="Identify the friction points..." required></textarea>
+                                        </div>
+                                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                                            <label for="reflectImprove">What will you improve tomorrow?</label>
+                                            <textarea id="reflectImprove" placeholder="Define tomorrow's tactical vector..." required></textarea>
+                                        </div>
+                                        <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="saveDailyReflection()">
+                                            Lock in Daily Reflection
+                                        </button>
+                                    </div>
+
+                                    <!-- Vertical Reflections Timeline -->
+                                    <h4 class="sub-header-tag" style="margin-top: 2.5rem; margin-bottom: 1rem;">Timeline Logs</h4>
+                                    <div class="timeline-container" id="reflectionTimeline">
+                                        <div class="chat-placeholder-text" style="padding: 1.5rem 0;">No reflection logs locked in yet.</div>
+                                    </div>
+                                </div>
+
+                                <!-- FEATURE 5: Smart Notifications Control -->
+                                <div class="glass-card reminders-os-card" style="padding: 2rem;">
+                                    <h3 class="card-title">Smart Reminder Framework</h3>
+                                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; margin-top: -0.5rem;">Schedule cognitive prompts to maintain alignment.</p>
+                                    
+                                    <div class="reminders-settings">
+                                        <button class="btn-primary" id="enableNotificationsBtn" style="width: 100%; justify-content: center; margin-bottom: 1.5rem;" onclick="enableBrowserNotifications()">
+                                            Enable FutureMe Reminders
+                                        </button>
+                                        
+                                        <div class="form-group">
+                                            <label for="reminderTimeSelect">Daily Prompt Hour</label>
+                                            <select id="reminderTimeSelect" onchange="updateReminderTimePreference()" style="width: 100%;">
+                                                <option value="8">8:00 AM (Morning Set)</option>
+                                                <option value="12">12:00 PM (Noon Calibration)</option>
+                                                <option value="18">6:00 PM (Evening Wind-up)</option>
+                                                <option value="21" selected>9:00 PM (Night Review)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="chat" class="section-wrapper">
+        <div class="chat-container">
+            <div class="section-header-center reveal">
+                <span class="badge badge-glow" id="chatBadge">Temporal Terminal</span>
+                <h2>Ask your future self anything.</h2>
+                <p>Direct low-latency communication interface with your potential reality architecture.</p>
+            </div>
+            <div class="glass-card chat-box reveal">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-placeholder-text" id="chatPlaceholder">
+                        Configure your identity matrix above to initiate temporal connection.
+                    </div>
+                </div>
+                
+                <div class="chat-input-area" id="chatInputArea" style="display: none;">
+                    <input type="text" id="chatInput" placeholder="Ask your FutureMe anything..." onkeydown="if(event.key === 'Enter') sendChatMessage()">
+                    <button class="btn-primary" id="sendChatBtn" onclick="sendChatMessage()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: block;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </div>
+                
+                <div class="chat-status-indicator" id="chatStatus">
+                    Temporal Terminal Offline • Setup Required
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-hack" class="section-wrapper">
+        <div class="glass-card hack-card-wrapper reveal">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span class="badge" style="background: rgba(124, 58, 237, 0.2); color: #c084fc;">Special Blueprint Event</span>
+                <h3 style="font-size: 2rem; font-weight: 700; letter-spacing: -0.5px;">Founder Lab AI Hack</h3>
+                <p style="color: var(--text-secondary); margin-top: 0.5rem;">Advanced paradigms utilized inside live execution frameworks.</p>
+            </div>
+            <div class="hack-grid">
+                <div class="hack-item">
+                    <h4>Identity Prompting</h4>
+                    <p>Don’t ask AI what to do. Ask it to respond as the future version of you who already successfully scaled and solved this technical architecture block.</p>
+                </div>
+                <div class="hack-item">
+                    <h4>Constraint Prompting</h4>
+                    <p>Force realistic clarity. Embed strict hard targets like absolute time limitations, zero funding thresholds, and current skillsets directly into your engine configurations.</p>
+                </div>
+                <div class="hack-item">
+                    <h4>Reverse Fear Prompting</h4>
+                    <p>Instruct the structural generative parameters to expose exactly what catastrophic, blindspot mistake your future trajectory warns you about right now.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-wrapper">
+        <div class="dopamine-container reveal">
+            <h2>You did not just build a page. You built a mirror.</h2>
+            <p>FutureMe turns AI from a computational utility instrument into an expansive, deeply private personal growth environment.</p>
+            <button class="btn-primary" onclick="copyResult()">Share My FutureMe</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            Nitish’s Founder Labs • FutureMe Live Build
+        </div>
+    </footer>
+
+    <div class="toast" id="shareToast">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #10b981;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span id="toastMessage">Your FutureMe moment is ready to share.</span>
+    </div>
+
+    <!-- Include external JavaScript logic -->
+    <script src="script.js"></script>
+</body>
+</html>
