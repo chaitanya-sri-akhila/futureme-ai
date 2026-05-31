@@ -74,7 +74,7 @@ The backend server exposes the following routes for frontend integration:
 * **Request Body**:
   ```json
   {
-    "name": "Nitish",
+    "name": "user",
     "age": "23",
     "goal": "Build a successful AI startup",
     "struggle": "Lack of consistency",
@@ -107,7 +107,7 @@ The backend server exposes the following routes for frontend integration:
   ```json
   {
     "userProfile": {
-      "name": "Nitish",
+      "name": "user",
       "age": "23",
       "goal": "Build a successful AI startup",
       "struggle": "Lack of consistency",
