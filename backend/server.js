@@ -53,6 +53,32 @@ function cleanAndParseJSON(text) {
   return JSON.parse(cleaned);
 }
 
+// Robust wrapper with automatic retry and exponential backoff for temporary/overload errors (e.g. 503, 429)
+async function generateContentWithRetry(model, prompt, retries = 3, delay = 1000) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const result = await model.generateContent(prompt);
+      return result;
+    } catch (err) {
+      const errMsg = String(err.message || err);
+      const isTemporary = errMsg.includes("503") || 
+                          errMsg.includes("Service Unavailable") || 
+                          errMsg.includes("429") || 
+                          errMsg.includes("Too Many Requests") || 
+                          errMsg.includes("fetch failed") ||
+                          errMsg.includes("overloaded");
+
+      if (isTemporary && attempt < retries) {
+        console.warn(`[Gemini API] Temporary error on attempt ${attempt}/${retries}: ${errMsg}. Retrying in ${delay}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        delay *= 2; // exponential backoff
+      } else {
+        throw err;
+      }
+    }
+  }
+}
+
 // Routes
 app.post('/api/generate-futureme', async (req, res) => {
   try {
@@ -103,7 +129,7 @@ Return only valid JSON in this exact format:
 
 Make it specific and deeply personal. Avoid generic motivation. Avoid clichés. Make it emotional but practical. Do not include any explanation or markdown formatting other than the JSON itself.`;
 
-    const result = await model.generateContent(systemPrompt);
+    const result = await generateContentWithRetry(model, systemPrompt);
     const responseText = result.response.text();
     
     try {
@@ -180,7 +206,7 @@ Return only valid JSON in this exact format:
 
 Make it extremely specific, action-oriented, and structured. Do not include any explanations or markdown.`;
 
-    const result = await model.generateContent(planPrompt);
+    const result = await generateContentWithRetry(model, planPrompt);
     const responseText = result.response.text();
 
     try {
@@ -253,7 +279,7 @@ Generate a powerful AI-style summary analysis (around 100-130 words). Focus on:
 
 Return ONLY the raw message text from the future self. Do not wrap in JSON, markdown codeblocks, or introductory text. Just start speaking.`;
 
-    const result = await model.generateContent(reportPrompt);
+    const result = await generateContentWithRetry(model, reportPrompt);
     const replyText = result.response.text();
 
     res.json({
@@ -312,7 +338,7 @@ ${question}
 
 Reply in 2-5 short paragraphs. Give at least one clear action.`;
 
-    const result = await model.generateContent(chatPrompt);
+    const result = await generateContentWithRetry(model, chatPrompt);
     const replyText = result.response.text();
 
     res.json({

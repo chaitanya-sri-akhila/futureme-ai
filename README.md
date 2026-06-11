@@ -56,7 +56,7 @@ Launch the server on port 5000:
 ```bash
 npm run dev
 ```
-*(Or use `npm start` to run with standard Node execution).*
+*(Or use `npm start` to run with standard Node execution. On Windows PowerShell, if execution policy blocks npm, run `npm.cmd run dev` or `node backend/server.js` directly).*
 
 ### 4. Open the App
 The backend is configured to host both the API routes and serve the static frontend files. Simply open your web browser and navigate to:
@@ -140,4 +140,4 @@ The backend server exposes the following routes for frontend integration:
 ## Technologies Used
 - **Frontend**: HTML5, Vanilla CSS3 (Custom Glassmorphic Styling & Keyframe Transitions), Vanilla JS (Fetch Client, Intersection Observer, Clipboard API)
 - **Backend**: Node.js, Express.js (Static files host, CORS configurations, body-parser)
-- **AI Engine**: Google Gemini API (`@google/generative-ai` SDK using `gemini-1.5-flash`)
+- **AI Engine**: Google Gemini API (`@google/generative-ai` SDK using `gemini-2.5-flash`)

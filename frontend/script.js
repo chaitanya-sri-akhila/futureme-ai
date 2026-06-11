@@ -126,17 +126,7 @@ async function generateFutureMe(event) {
         userProfile = requestPayload;
         chatHistory = []; // Reset chat history
         
-        // Save session data to localStorage
-        localStorage.setItem('futureme_profile', JSON.stringify(userProfile));
-        localStorage.setItem('futureme_daily_plan', JSON.stringify(data.dailyPlan));
-        localStorage.setItem('futureme_outputs', JSON.stringify({
-            message: data.message,
-            futureIdentity: data.futureIdentity,
-            nextMoves: data.nextMoves,
-            habit: data.habit,
-            warning: data.warning,
-            mantra: data.mantra
-        }));
+
 
         // Setup timestamp signature
         const now = new Date();
@@ -195,7 +185,7 @@ function initializeChatTerminal(initialMessage) {
         role: "futureme",
         message: initialMessage
     });
-    localStorage.setItem('futureme_chat', JSON.stringify(chatHistory));
+
 
     // Reveal input area and update connection banners
     chatInputArea.style.display = 'flex';
@@ -257,7 +247,7 @@ async function sendChatMessage() {
         // Save conversation turn into frontend chat state history array
         chatHistory.push({ role: "user", message: question });
         chatHistory.push({ role: "futureme", message: result.reply });
-        localStorage.setItem('futureme_chat', JSON.stringify(chatHistory));
+
 
     } catch (err) {
         console.error("Chat message error:", err);
@@ -353,11 +343,6 @@ function resetForm() {
     outputContainer.style.display = 'none';
     formElement.style.display = 'block';
     
-    // Clear localStorage session items
-    localStorage.removeItem('futureme_profile');
-    localStorage.removeItem('futureme_daily_plan');
-    localStorage.removeItem('futureme_outputs');
-    localStorage.removeItem('futureme_chat');
 
     // Reset chat history state
     chatHistory = [];
@@ -460,95 +445,9 @@ function loadState() {
         }
     }
     
-    // Check for saved userProfile and dailyPlan to auto-restore session
-    const savedProfile = localStorage.getItem('futureme_profile');
-    const savedPlan = localStorage.getItem('futureme_daily_plan');
-    const savedChat = localStorage.getItem('futureme_chat');
-    const savedOutputs = localStorage.getItem('futureme_outputs');
-
-    if (savedProfile && savedPlan && savedOutputs) {
-        try {
-            userProfile = JSON.parse(savedProfile);
-            const plan = JSON.parse(savedPlan);
-            const outputs = JSON.parse(savedOutputs);
-            
-            // Populating UI values
-            document.getElementById('userName').value = userProfile.name || "";
-            document.getElementById('userAge').value = userProfile.age || "";
-            document.getElementById('userGoal').value = userProfile.goal || "";
-            document.getElementById('userStruggle').value = userProfile.struggle || "";
-            document.getElementById('userTimeline').value = userProfile.oneYearVision || "";
-            document.getElementById('futureTone').value = userProfile.tone || "Brutally Honest";
-
-            // Populate text blocks
-            document.getElementById('dynamicMessage').innerText = `“${outputs.message}”`;
-            document.getElementById('identBlock').innerText = outputs.futureIdentity;
-            document.getElementById('habitBlock').innerText = outputs.habit;
-            document.getElementById('warningBlock').innerText = outputs.warning;
-            document.getElementById('mantraBlock').innerText = outputs.mantra;
-
-            const movesElement = document.getElementById('movesBlock');
-            movesElement.innerHTML = "";
-            (outputs.nextMoves || []).forEach(move => {
-                const li = document.createElement('li');
-                li.innerText = move;
-                movesElement.appendChild(li);
-            });
-
-            // Display outputs
-            document.getElementById('futureForm').style.display = 'none';
-            document.getElementById('outputContainer').style.display = 'block';
-
-            const now = new Date();
-            document.getElementById('outputTimestamp').innerText = `FutureMe Interface Sync • Active Stream ${now.toLocaleTimeString()}`;
-
-            // Render plan
-            renderDailyPlan(plan);
-
-            // Restore reminder selectors
-            const select = document.getElementById('reminderTimeSelect');
-            if (select) select.value = state.reminderHour;
-
-            // Chat Restore
-            if (savedChat) {
-                chatHistory = JSON.parse(savedChat);
-                initializeChatTerminalRestored();
-            } else {
-                initializeChatTerminal(outputs.message);
-            }
-
-            // Restore weekly report
-            if (state.weeklyReport) {
-                const quoteBlock = document.getElementById('reportQuoteBlock');
-                const reportCard = document.getElementById('weeklyReportTextCard');
-                if (quoteBlock && reportCard) {
-                    quoteBlock.innerText = `“${state.weeklyReport}”`;
-                    reportCard.style.display = 'block';
-                }
-            }
-
-        } catch (e) {
-            console.error("Error restoring session:", e);
-        }
-    }
-}
-
-function initializeChatTerminalRestored() {
-    const chatInputArea = document.getElementById('chatInputArea');
-    const chatStatus = document.getElementById('chatStatus');
-    const chatBadge = document.getElementById('chatBadge');
-    const chatMessages = document.getElementById('chatMessages');
-
-    chatMessages.innerHTML = "";
-    
-    chatHistory.forEach(msg => {
-        appendChatMessage(msg.role, msg.message);
-    });
-
-    chatInputArea.style.display = 'flex';
-    chatStatus.innerText = "Temporal Connection Active • Low-Latency Sync Ready";
-    chatBadge.innerText = "Connection Secure";
-    chatBadge.classList.add('badge-glow');
+    // Restore reminder selectors
+    const select = document.getElementById('reminderTimeSelect');
+    if (select) select.value = state.reminderHour;
 }
 
 // Render Daily Plan
